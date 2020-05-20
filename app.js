@@ -16,8 +16,8 @@ let myLibrary = JSON.parse(localStorage.getItem("library") || "[]");
 //   new Book("A Dance of Dragons", "George R.R. Martin", "1.016", "2011", false),
 // ];
 
-function addBookToLibrary(title, author, pages, year) {
-  myLibrary.push(new Book(title, author, pages, year));
+function addBookToLibrary(title, author, pages, year, isRead) {
+  myLibrary.push(new Book(title, author, pages, year, isRead));
   saveToLocalStorage();
 }
 
@@ -44,7 +44,7 @@ function render() {
     year.innerHTML = `Year: ${book.year}`;
     divBook.setAttribute("value", book.isRead);
 
-    if(book.isRead) {
+    if(book.isRead == true) {
       isRead.src = "./img/toggle-on.png";
     }
     else {
@@ -112,15 +112,19 @@ function renderForm() {
   form.appendChild(divBook);
 }
 
+document.addEventListener('click', (e) => {
+  if (!e.target.matches('.check')) return;
+  e.target.value = true;
+})
+
 function getFormInfo() {
   let values = document.querySelectorAll("INPUT");
   const array = [];
-
+  
   values.forEach((value) => {
       array.push(value.value)
   })
-
-  addBookToLibrary(array[0], array[1], array[2], array[3], array[4]);
+  addBookToLibrary(array[0], array[1], array[2], array[3], array[4], array[5]);
 }
 
 document.addEventListener("click", (e) => {
@@ -145,8 +149,6 @@ function closeForm() {
 }
 
 function isRead(position) {
-  let img = document.querySelector('.isRead');
-
   if (!myLibrary[position].isRead) {
     myLibrary[position].isRead = true;
     saveToLocalStorage();
@@ -157,5 +159,6 @@ function isRead(position) {
   saveToLocalStorage();
   render();
 }
+
 
 render();
