@@ -42,12 +42,17 @@ function render() {
     author.innerHTML = `By: ${book.author}`;
     pages.innerHTML = `Pages: ${book.pages}`;
     year.innerHTML = `Year: ${book.year}`;
-    isRead.setAttribute("value", book.isRead);
+    divBook.setAttribute("value", book.isRead);
 
+    if(book.isRead) {
+      isRead.src = "./img/toggle-on.png";
+    }
+    else {
+      isRead.src = "./img/toggle-off.png";
+    }
     remove.src  = "./img/deleteBtn.png";
-    isRead.src = "./img/toggle-off.png";
     isRead.classList.add("isRead");
-    isRead.setAttribute("onclick", `isRead(${position})`);
+    isRead.setAttribute('onclick', `isRead(${position})`);
     remove.classList.add("remove");
     remove.setAttribute("onclick", `remove(${position})`);
     divBook.classList.add("book");
@@ -81,7 +86,7 @@ function renderForm() {
   const buttonSave = document.createElement("BUTTON");
   let close = document.createElement("IMG");
 
-  close.src  = "./img/deleteBtn.png";
+  // close.src  = "./img/deleteBtn.png";
   close.classList.add("remove");
   close.setAttribute("onclick", "closeForm()");
   divBook.classList.add("divBook");
@@ -140,9 +145,17 @@ function closeForm() {
 }
 
 function isRead(position) {
-  if(!myLibrary[position].isRead) {
+  let img = document.querySelector('.isRead');
+
+  if (!myLibrary[position].isRead) {
     myLibrary[position].isRead = true;
-    console.log(myLibrary[position].isRead)
+    saveToLocalStorage();
+    render();
+    return;
   }
+  myLibrary[position].isRead = false;
+  saveToLocalStorage();
+  render();
 }
+
 render();
