@@ -99,6 +99,11 @@ function renderForm() {
   yearLabel.innerHTML = "Year";
   buttonSave.innerHTML = "Save";
 
+  titleInput.setAttribute("name", "title");
+  authorInput.setAttribute("name", "author");
+  pagesInput.setAttribute("name", "pages");
+  yearInput.setAttribute("name", "year");
+
   divBook.appendChild(close)
   divBook.appendChild(titleLabel);
   divBook.appendChild(titleInput);
@@ -159,6 +164,10 @@ function isRead(position) {
   myLibrary[position].isRead = false;
   saveToLocalStorage();
   render();
+}
+
+function validateForm() {
+  let title = document.querySelector()
 }
 
 render();
