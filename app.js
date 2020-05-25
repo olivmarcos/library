@@ -86,8 +86,9 @@ function renderForm() {
   const buttonSave = document.createElement("BUTTON");
   let close = document.createElement("IMG");
 
-  // close.src  = "./img/deleteBtn.png";
+  close.src  = "./img/deleteBtn.png";
   close.classList.add("remove");
+  close.classList.add("btnForm");
   close.setAttribute("onclick", "closeForm()");
   divBook.classList.add("divBook");
   buttonSave.classList.add("btnSave");
@@ -107,9 +108,9 @@ function renderForm() {
   divBook.appendChild(pagesInput);
   divBook.appendChild(yearLabel);
   divBook.appendChild(yearInput);
-  divBook.appendChild(buttonSave);
 
   form.appendChild(divBook);
+  form.appendChild(buttonSave);
 }
 
 document.addEventListener('click', (e) => {
@@ -159,6 +160,5 @@ function isRead(position) {
   saveToLocalStorage();
   render();
 }
-
 
 render();
