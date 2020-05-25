@@ -6,36 +6,39 @@ function Book(title, author, pages, year, isRead) {
   this.isRead = isRead;
 }
 
-let myLibrary = JSON.parse(localStorage.getItem("library") || "[]");
+let library = JSON.parse(localStorage.getItem("library") || "[]");
 
-// myLibrary = [
-//   new Book("A Game of Thrones", "George R.R. Martin", "694", "1996", false),
-//   new Book("A Clash of Kings", "George R.R. Martin", "761", "1998", false),
-//   new Book("A Storm of Swords", "George R.R. Martin", "973", "2000", false),
-//   new Book("A Feast for Crows", "George R.R. Martin", "753", "2005", false),
-//   new Book("A Dance of Dragons", "George R.R. Martin", "1.016", "2011", false),
-// ];
+const myLibrary = [
+  new Book("A Game of Thrones", "George R.R. Martin", "694", "1996", false),
+  new Book("A Clash of Kings", "George R.R. Martin", "761", "1998", false),
+  new Book("A Storm of Swords", "George R.R. Martin", "973", "2000", false),
+  new Book("A Feast for Crows", "George R.R. Martin", "753", "2005", false),
+  new Book("A Dance of Dragons", "George R.R. Martin", "1.016", "2011", false),
+];
+
+if (library.length === 0) {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+}
 
 function addBookToLibrary(title, author, pages, year, isRead) {
-  myLibrary.push(new Book(title, author, pages, year, isRead));
-  saveToLocalStorage();
+  library.push(new Book(title, author, pages, year, isRead));
 }
 
 function saveToLocalStorage() {
-  localStorage.setItem("library", JSON.stringify(myLibrary))
+  localStorage.setItem("library", JSON.stringify(library));
 }
 
 function render() {
   const books = document.querySelector(".books");
   books.innerHTML = '';
-  myLibrary.forEach((book) => {
+  library.forEach((book) => {
     let divBook = document.createElement("DIV");
     let title = document.createElement("H2");
     let author = document.createElement("H2");
     let pages = document.createElement("H3");
     let year = document.createElement("H3");
     let remove = document.createElement("IMG");
-    let position = myLibrary.indexOf(book);
+    let position = library.indexOf(book);
     let isRead = document.createElement("IMG");
 
     title.innerHTML = book.title;
@@ -130,6 +133,7 @@ function getFormInfo() {
   values.forEach((value) => {
       array.push(value.value)
   })
+
   addBookToLibrary(array[0], array[1], array[2], array[3], array[4], array[5]);
 }
 
@@ -141,10 +145,12 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   if (!e.target.matches(".btnSave")) return;
   getFormInfo();
+  saveToLocalStorage();
+  render();
 });
 
 function remove(position) {  
-  myLibrary.splice(position, 1);
+  library.splice(position, 1);
   saveToLocalStorage();
   render();
 }
@@ -155,19 +161,15 @@ function closeForm() {
 }
 
 function isRead(position) {
-  if (!myLibrary[position].isRead) {
-    myLibrary[position].isRead = true;
+  if (!library[position].isRead) {
+    library[position].isRead = true;
     saveToLocalStorage();
     render();
     return;
   }
-  myLibrary[position].isRead = false;
+  library[position].isRead = false;
   saveToLocalStorage();
   render();
-}
-
-function validateForm() {
-  let title = document.querySelector()
 }
 
 render();
