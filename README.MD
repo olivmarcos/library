@@ -7,3 +7,7 @@ A challenge from the Javascript course that you can find in [The Odin Project.](
 <hr>
 
 <img src="./img/app-imgs/Annotation 2020-05-25 202932.png">
+
+<hr>
+
+<img src="Annotation 2020-05-25 210750.png">
